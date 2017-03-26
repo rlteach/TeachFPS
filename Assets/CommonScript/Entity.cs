@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using RL_Helpers;
 
 //Collsion controller base class, abstracts Unity Collsion behaviour
 //Processes triggers and colliders
@@ -8,24 +9,29 @@ using System;
 
 //Makes sure this component is present as its needed by the script
 //[RequireComponent(typeof(Rigidbody))]
-namespace SinglePlayer {
+namespace CoreCode {						//So we can keep supplied code seperate
     public class Entity : MonoBehaviour {
 
         //Get References to most used components
 
-        public enum EType {     //Possible Enity types, used instead of tags
+        public enum TypeID {     //Possible Enity types, used instead of tags
             None
-            , Player
-            , Pickup
+            , Player		//ID for playey
+            , Zombie1		//ID for Zombies
+			, Zombie2
+			, Zombie3
+			, Zombie4
+			, Zombie5
+			, Zombie6
         }
 
         protected virtual void Start() {
-            GM.DebugMsg(GetType().Name + " Started");
+			DB.MsgFormat("{0} Started",GetType().Name);
         }
 
-        public virtual EType Type {     //get Type of Enity
+		public virtual TypeID ID {     //get Type of Enity
             get {
-                return EType.None;
+				return TypeID.None;
             }
         }
 
@@ -35,7 +41,7 @@ namespace SinglePlayer {
         }
 
         private void NonEntityCollisionError(GameObject vOther) {       //error in case this is not an entity
-            GM.Msg("Ignoring non entity collision " + gameObject.name + " with " + vOther.gameObject.name);
+			DB.MsgFormat("Ignoring non entity collision {0} with {1}",gameObject.name,vOther.gameObject.name);
         }
 
         //Wrapper for collsion
@@ -61,14 +67,14 @@ namespace SinglePlayer {
         //Default Collsion method prints message
         protected virtual void Collision(Entity vOther, bool vIsTrigger) {
             if (vIsTrigger) {        //Print appropriate message
-                GM.Msg(gameObject.name + " trigger with " + vOther.gameObject.name + "Type " + vOther.Type);
+				DB.MsgFormat("{0} trigger with {1} Type:{2}",gameObject.name ,vOther.gameObject.name,vOther.Type);
             } else {
-                GM.Msg(gameObject.name + " collided with " + vOther.gameObject.name + "Type " + vOther.Type);
+				DB.MsgFormat("{0} collided with {1} Type:{2}",gameObject.name ,vOther.gameObject.name,vOther.Type);
             }
         }
 
         void OnDestroy() {
-            GM.Msg(gameObject.name + " about to be destroyed");
+			DB.MsgFormat("{0} about to be destroyed",gameObject.name);
         }
 
         //Default destroy
