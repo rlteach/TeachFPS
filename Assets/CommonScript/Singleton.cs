@@ -5,7 +5,7 @@ namespace RL_Helpers {
 	abstract public class Singleton : MonoBehaviour {
 
 		#region Singleton
-		protected bool CreateSingleton<T>(out T sGM) where T : Singleton {  //Set Up singleton for a Type
+		protected bool CreateSingleton<T>(ref T sGM) where T : Singleton {  //Set Up singleton for a Type
 			if (sGM == null) {
 				sGM = (T)this;
 				DontDestroyOnLoad(gameObject);

@@ -67,9 +67,9 @@ namespace CoreCode {						//So we can keep supplied code seperate
         //Default Collsion method prints message
         protected virtual void Collision(Entity vOther, bool vIsTrigger) {
             if (vIsTrigger) {        //Print appropriate message
-				DB.MsgFormat("{0} trigger with {1} Type:{2}",gameObject.name ,vOther.gameObject.name,vOther.Type);
+				DB.MsgFormat("{0} trigger with {1} Type:{2}",gameObject.name ,vOther.gameObject.name,vOther.ID);
             } else {
-				DB.MsgFormat("{0} collided with {1} Type:{2}",gameObject.name ,vOther.gameObject.name,vOther.Type);
+				DB.MsgFormat("{0} collided with {1} Type:{2}",gameObject.name ,vOther.gameObject.name,vOther.ID);
             }
         }
 
